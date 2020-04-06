@@ -5,6 +5,7 @@ int obtenirPGCD(int* fraction);
 void simplifierFraction(int* fraction);
 int obtenirFractions(int** adresseFractions);
 void lireFraction(int* fraction);
+bool fractionValide(int* fraction);
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -128,4 +129,15 @@ void lireFraction(int* fraction) {
             valide = true;
         }
     } while (!valide);
+}
+
+bool fractionValide(int* fraction) {
+    /*
+     * Verifie la validite de la fraction entree par l'utilisateur
+     */
+    //Recoit l'adresse d'un numerareur en parametre (index pair)
+    int numerateur = *(fraction);
+    int denominateur = *(fraction + 1);
+
+    return (numerateur > 0) && (denominateur > 0);
 }
