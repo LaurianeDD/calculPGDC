@@ -2,6 +2,7 @@
 
 //Prototypes
 int obtenirPGCD(int* fraction);
+void simplifierFraction(int* fraction);
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -29,4 +30,18 @@ int obtenirPGCD(int* fraction) {
 
     //Retourne le dernier diviseur commun trouve; i.e. le plus grand diviseur commun
     return PGCD;
+}
+
+void simplifierFraction(int* fraction) {
+    /*
+     * Calcul la fraction simplifiee par le plus grand diviseur commun
+     */
+    int PGCD = obtenirPGCD(fraction);
+
+    //Recoit l'adresse d'un numerareur en parametre (index pair)
+    //Calcul du numerateur simplifie
+    *fraction = *fraction / PGCD;
+
+    //Calcul du denominateur simplifie
+    *(fraction + 1) = *(fraction + 1) / PGCD;
 }
