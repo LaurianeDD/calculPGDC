@@ -6,6 +6,7 @@ void simplifierFraction(int* fraction);
 int obtenirFractions(int** adresseFractions);
 void lireFraction(int* fraction);
 bool fractionValide(int* fraction);
+void afficherFractions(int* fractions, int quantite);
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -140,4 +141,47 @@ bool fractionValide(int* fraction) {
     int denominateur = *(fraction + 1);
 
     return (numerateur > 0) && (denominateur > 0);
+}
+
+void afficherFractions(int* fractions, int quantite) {
+    /*
+     *Affiche les fractions sous leur forme originale (entree par l'utilisateur)
+     *et la version simplifiee de chacune
+     */
+
+    //Copie le tableau fractions
+    int* fractionsSimplifiees = new int[quantite];
+    for (int i = 0; i < (quantite * 2); i++) {
+        fractionsSimplifiees[i] = fractions[i];
+    }
+
+    //Pour chaque fraction
+    for (int fraction = 0; fraction < quantite; fraction++) {
+        //Calcul sa valeur simplifiee
+        simplifierFraction((fractionsSimplifiees + (fraction * 2)));
+    }
+
+    int numerateur;
+    int denominateur;
+    int numerateurSimplifie;
+    int denominateurSimplifie;
+
+    for (int fraction = 0; fraction < quantite; fraction++) {
+        //Assignation des valeurs a des variables pour alleger la lecture
+        //Assignation des operandes de la fraction originale
+        numerateur = fractions[fraction * 2];
+        denominateur = fractions[(fraction * 2) + 1];
+        //Assignation des operandes de la fraction simplifiee
+        numerateurSimplifie = fractionsSimplifiees[fraction * 2];
+        denominateurSimplifie = fractionsSimplifiees[(fraction * 2) +1];
+
+        //Affiche la fraction originale
+        std::cout << numerateur << "/" << denominateur;
+        std::cout << "  >>>   ";
+        //Affiche la fraction simplifiee
+        std::cout << numerateurSimplifie << "/" << denominateurSimplifie;
+        std::cout << std::endl;
+    }
+
+    delete[] fractionsSimplifiees;
 }
