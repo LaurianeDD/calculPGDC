@@ -9,7 +9,18 @@ bool fractionValide(int* fraction);
 void afficherFractions(int* fractions, int quantite);
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    int* fractions;
+
+    int nbFractions = obtenirFractions(&fractions);
+
+    if (nbFractions > 0) {
+        afficherFractions(fractions, nbFractions);
+    } else {
+        std::cout << "Nombre de fraction invalide." << std::endl;
+    }
+    delete[] fractions;
+    std::cout << "Fin du programme.";
+    
     return 0;
 }
 
