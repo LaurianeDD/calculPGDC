@@ -4,6 +4,8 @@
 int obtenirPGCD(int* fraction);
 void simplifierFraction(int* fraction);
 int obtenirFractions(int** adresseFractions);
+void lireFraction(int* fraction);
+bool fractionValide(int* fraction);
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -74,4 +76,68 @@ int obtenirFractions(int** adresseFractions) {
 
     //Valeur utilise par le main() et les autres fonctions
     return nbFractions;
+}
+
+void lireFraction(int* fraction) {
+    /*
+     * Obtient un numerateur et denominateur de l'utilisateur
+     * et enregistre les valeurs aux index appropries du tableau de fractions
+     */
+
+    std::string numerateur;
+    std::string denominateur;
+
+    bool valide;
+    do {
+        std::cout << "Veuillez saisir une fraction(0/0): ";
+        //Lis jusqu'au caractere '/'
+        std::getline(std::cin, numerateur, '/');
+        //Lis le reste des caracteres jusqu'au saut de ligne
+        std::cin >> denominateur;
+
+        //Conversion du numerateur en entier
+        //Et assignation a l'index recu en parametre
+        //Si erreur, assigne 0
+        try {
+            *(fraction) = std::stoi(numerateur);
+        } catch (std::invalid_argument const& e) {
+            std::cout << "Entree invalide: le numerateur doit etre un nombre entier" << std::endl;
+            *(fraction) = 0;
+        } catch (std::out_of_range const& e) {
+            std::cout << "Entree invalide: le numerateur est trop grand" << std::endl;
+            *(fraction) = 0;
+        }
+
+        //Conversion du denominateur en entier
+        //Et assignation a l'index suivant celui recu en parametre (index impair)
+        //Si erreur, assigne 0
+        try {
+            *(fraction + 1) = std::stoi(denominateur);
+        } catch (std::invalid_argument const& e) {
+            std::cout << "Entree invalide: le denominateur doit etre un nombre entier" << std::endl;
+            *(fraction + 1) = 0;
+        } catch (std::out_of_range const& e) {
+            std::cout << "Entree invalide: le denominateur est trop grand" << std::endl;
+            *(fraction + 1) = 0;
+        }
+
+        //Verifie que le numerateur et le denominateur sont plus grand que 0
+        if (!fractionValide(fraction)) {
+            valide = false;
+            std::cout << "Fraction invalide: les operandes doivent etre des entiers positifs." << std::endl;
+        } else {
+            valide = true;
+        }
+    } while (!valide);
+}
+
+bool fractionValide(int* fraction) {
+    /*
+     * Verifie la validite de la fraction entree par l'utilisateur
+     */
+    //Recoit l'adresse d'un numerareur en parametre (index pair)
+    int numerateur = *(fraction);
+    int denominateur = *(fraction + 1);
+
+    return (numerateur > 0) && (denominateur > 0);
 }
